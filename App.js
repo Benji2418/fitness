@@ -1,25 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Plans from './screens/Plans'; // Import your new screen
+import BuildPlans from './screens/BuildPlans';
+import AddExercise from './screens/AddExercise';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Fitness App</Text>
-      <Image source={require("./assets/icon.png")} style={styles.icon}/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Plans" component={Plans} />
+        <Stack.Screen name="BuildPlans" component={BuildPlans}/>
+        <Stack.Screen name="AddExercise" component={AddExercise}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    width: 200, // Specify the desired width
-    height: 200, // Specify the desired height
-  },
-});
+export default App;
