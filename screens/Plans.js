@@ -7,6 +7,7 @@ const { width, height } = Dimensions.get('window');
 
 const Stack = createStackNavigator();
 
+
 // Custom Button Component
 const CustomButton = ({ onPress, title }) => (
   <TouchableOpacity

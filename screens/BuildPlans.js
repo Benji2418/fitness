@@ -28,10 +28,10 @@ const BuildPlans = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
-            <Text style={styles.label}>Choose Exercises:</Text>
+            <Text style={styles.label}>Plan Name:</Text>
             <TextInput
             style={styles.input}
-            placeholder="Search"
+            placeholder="Title"
             onChangeText={setText} // Updates the state variable 'text' whenever the input changes
             value={text} // Binds the input value to the state variable 'text'
             />
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     fontSize: width * 0.05, // Font size as a percentage of the device's width
   },
   inputContainer: {
-    marginTop: 20, // Adds space below the input container
   },
   label: {
     fontSize: 18, // Sets the font size for the label

@@ -11,9 +11,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Plans" component={Plans} />
-        <Stack.Screen name="BuildPlans" component={BuildPlans}/>
-        <Stack.Screen name="AddExercise" component={AddExercise}/>
+        <Stack.Screen name="Plans" component={Plans}/>
+        <Stack.Screen name="BuildPlans" component={BuildPlans} options={{ title: 'Build Plans' }}/>
+        <Stack.Screen name="AddExercise" component={AddExercise} options={{ title: 'Add Exercises' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
