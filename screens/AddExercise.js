@@ -29,8 +29,11 @@ const CustomButtonEquipment = ({ onPress, title }) => (
 );
 
 const AddExercise = ({navigation}) => {
-  const handlePress = () => {
-    navigation.navigate('AddExercise');
+  const handleMusclePress = () => {
+    navigation.navigate('ChooseMusclesMan');
+  };
+  const handleEquipmentPress = () => {
+    navigation.navigate('ChooseEquipment');
   };
   const [text, setText] = useState('');
 
@@ -47,10 +50,10 @@ const AddExercise = ({navigation}) => {
         </View>
         <View style={styles.buttonContainer}>
             <View style={styles.buttonMuscles}>
-                <CustomButtonMuscles onPress={handlePress} title="Muscles" />
+                <CustomButtonMuscles onPress={handleMusclePress} title="Muscles" />
             </View>
             <View style={styles.buttonEquipment}>
-                <CustomButtonEquipment onPress={handlePress} title="Equipment" />
+                <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
             </View>
         </View>
     </SafeAreaView>
