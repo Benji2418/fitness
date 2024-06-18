@@ -14,7 +14,7 @@ const ChooseMusclesMan = () => {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
-            <Text style={styles.label}>Choose exercises:</Text>
+            <Text style={styles.label}>Choose muscles:</Text>
             <TextInput
             style={styles.input}
             placeholder="Search"
