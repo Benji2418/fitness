@@ -8,10 +8,20 @@ const { width, height } = Dimensions.get('window');
 
 const Stack = createStackNavigator();
 // Custom Button Component
-const CustomButton = ({ onPress, title }) => (
+const CustomButtonMuscles = ({ onPress, title }) => (
   <TouchableOpacity
     onPress={onPress}
-    style={styles.button}
+    style={styles.buttonMuscles}
+    activeOpacity={0.7} // Adjusts the opacity of the button when pressed
+  >
+    <Text style={styles.buttonText}>{title}</Text>
+  </TouchableOpacity>
+);
+
+const CustomButtonEquipment = ({ onPress, title }) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={styles.buttonEquipment}
     activeOpacity={0.7} // Adjusts the opacity of the button when pressed
   >
     <Text style={styles.buttonText}>{title}</Text>
@@ -35,8 +45,13 @@ const AddExercise = ({navigation}) => {
             value={text} // Binds the input value to the state variable 'text'
             />
         </View>
-        <View style={styles.exerciseContainer}>
-            <CustomButton onPress={handlePress} title="Add Exercises" />
+        <View style={styles.buttonContainer}>
+            <View style={styles.buttonMuscles}>
+                <CustomButtonMuscles onPress={handlePress} title="Muscles" />
+            </View>
+            <View style={styles.buttonEquipment}>
+                <CustomButtonEquipment onPress={handlePress} title="Equipment" />
+            </View>
         </View>
     </SafeAreaView>
   );
@@ -45,16 +60,25 @@ const AddExercise = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, // Occupies the full screen
-    justifyContent: 'space-between', // Centers content vertically
     paddingHorizontal: 16,
   },
-  exerciseContainer: {
-    marginBottom: 20, // Adds some space at the bottom
-    alignItems: 'center'
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  button: {
-    width: '80%', // Width as a percentage of the container's width
-    height: height * 0.07, // Height as a percentage of the device's height
+  buttonMuscles: {
+    width: '42%', // Width as a percentage of the container's width
+    height: height * 0.06, // Height as a percentage of the device's height
+    backgroundColor: '#007BFF', // Button background color
+    justifyContent: 'center', // Centers content vertically
+    alignItems: 'center', // Centers content horizontally
+    borderRadius: 10, // Rounded corners
+  },
+  buttonEquipment: {
+    width: '47%', // Width as a percentage of the container's width
+    height: height * 0.06, // Height as a percentage of the device's height
     backgroundColor: '#007BFF', // Button background color
     justifyContent: 'center', // Centers content vertically
     alignItems: 'center', // Centers content horizontally
@@ -62,7 +86,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFFFFF', // Text color
-    fontSize: width * 0.05, // Font size as a percentage of the device's width
+    fontSize: width * 0.04, // Font size as a percentage of the device's width
   },
   inputContainer: {
   },
