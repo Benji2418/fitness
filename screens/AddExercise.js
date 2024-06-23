@@ -1,8 +1,9 @@
 import { CurrentRenderContext, NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Dimensions, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CheckBox from 'expo-checkbox'
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,6 +38,13 @@ const AddExercise = ({navigation}) => {
   };
   const [text, setText] = useState('');
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handlePress = () => {
+    setIsChecked(!isChecked);
+  };
+
+
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
@@ -55,6 +63,23 @@ const AddExercise = ({navigation}) => {
             <View style={styles.buttonEquipment}>
                 <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
             </View>
+        </View>
+        <View style={styles.exerciseContainer}>
+          <TouchableOpacity 
+            style={styles.touchable}
+            onPress={handlePress}
+            >
+            <Image
+                source={require('../assets/exercise_icon_gifs/barbell_bench_press.gif')}
+                style={styles.icons}
+            />
+            <Text style={styles.equipmentText}>Berbell Bench Press</Text>
+            <CheckBox 
+              value={isChecked}
+              onValueChange={handlePress}
+              style={styles.checkbox}
+            />
+          </TouchableOpacity>
         </View>
     </SafeAreaView>
   );
@@ -109,6 +134,32 @@ const styles = StyleSheet.create({
   },
   displayText: {
     fontSize: 18, // Sets the font size for the display text
+  },
+  exerciseContainer:{
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'space-between'
+  },
+  icons: {
+    marginLeft: 5,
+    height: 60,
+    width: 60,
+  },
+  checkbox: {
+    marginRight: 20,
+  },
+  equipmentText: {
+    fontSize: 15,
+  },
+  touchable: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'space-between',
+    padding: 10,
+    backgroundColor: '#ddd',
+    borderRadius: 10,
   },
 });
 
