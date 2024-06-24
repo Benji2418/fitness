@@ -1,7 +1,7 @@
 import { CurrentRenderContext, NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Image, Dimensions, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CheckBox from 'expo-checkbox'
 
@@ -29,6 +29,27 @@ const CustomButtonEquipment = ({ onPress, title }) => (
   </TouchableOpacity>
 );
 
+const CustomButtonExercises = ({ handlePress, image, title, isChecked }) => (
+  <View style={styles.exerciseContainer}>
+      <TouchableOpacity 
+        style={styles.touchable}
+        onPress={handlePress}
+        >
+          <Image
+              source={image}
+              style={styles.icons}
+          />
+          <Text style={styles.equipmentText}>{title}</Text>
+          <CheckBox 
+            value={isChecked}
+            onValueChange={handlePress}
+            style={styles.checkbox}
+          />
+      </TouchableOpacity>
+  </View>
+);
+
+
 const AddExercise = ({navigation}) => {
   const handleMusclePress = () => {
     navigation.navigate('ChooseMusclesMan');
@@ -47,6 +68,7 @@ const AddExercise = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView>
         <View style={styles.inputContainer}>
             <Text style={styles.label}>Choose exercises:</Text>
             <TextInput
@@ -64,23 +86,43 @@ const AddExercise = ({navigation}) => {
                 <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
             </View>
         </View>
-        <View style={styles.exerciseContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/exercise_icon_gifs/barbell_bench_press.gif')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Berbell Bench Press</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/barbell_bench_press.gif')} 
+            title="Barbell Bench Press" 
+            isChecked="false"
+        />
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/dumbbell_bench_press.gif')} 
+            title="Dumbbell Bench Press" 
+            isChecked="false"
+        />
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/dumbbell_one_arm_row.gif')} 
+            title="Dumbbell One-Arm Row" 
+            isChecked="false"
+        />
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/dumbbell_row.gif')} 
+            title="Dumbbell Row" 
+            isChecked="false"
+        />
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/decline_cable_crossover.gif')} 
+            title="Decline Cable Crossover" 
+            isChecked="false"
+        />
+        <CustomButtonExercises 
+            onPress={handlePress} 
+            image={require('../assets/exercise_icon_gifs/incline_dumbbell_press.gif')} 
+            title="Incline Dumbbell Bench Press" 
+            isChecked="false"
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -138,7 +180,7 @@ const styles = StyleSheet.create({
   exerciseContainer:{
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 10,
     justifyContent: 'space-between'
   },
   icons: {

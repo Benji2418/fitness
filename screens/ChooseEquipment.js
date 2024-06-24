@@ -9,6 +9,26 @@ const { width, height } = Dimensions.get('window');
 
 const Stack = createStackNavigator();
 
+const EquipmentCheckBox = ({ handlePress, image, title, isChecked }) => (
+  <View style={styles.equipmentContainer}>
+      <TouchableOpacity 
+        style={styles.touchable}
+        onPress={handlePress}
+        >
+          <Image
+              source={image}
+              style={styles.icons}
+          />
+          <Text style={styles.equipmentText}>{title}</Text>
+          <CheckBox 
+            value={isChecked}
+            onValueChange={handlePress}
+            style={styles.checkbox}
+          />
+      </TouchableOpacity>
+  </View>
+);
+
 const ChooseEquipment = () => {
   const [text, setText] = useState('');
   const [isChecked, setIsChecked] = useState(false);
@@ -19,125 +39,48 @@ const ChooseEquipment = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/dumbbell-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Dumbbells</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/barbell-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Barbells</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/kettlebell-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Kettlebell</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/cable-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Cables</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/machine-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Machines</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/bodyweight-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Bodyweight</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.equipmentContainer}>
-          <TouchableOpacity 
-            style={styles.touchable}
-            onPress={handlePress}
-            >
-            <Image
-                source={require('../assets/equipment_icons/cardio-icon.png')}
-                style={styles.icons}
-            />
-            <Text style={styles.equipmentText}>Cardio</Text>
-            <CheckBox 
-              value={isChecked}
-              onValueChange={handlePress}
-              style={styles.checkbox}
-            />
-          </TouchableOpacity>
-        </View>
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/dumbbell-icon.png')}
+          title="Dumbbells" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/barbell-icon.png')}
+          title="Barbells" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/kettlebell-icon.png')}
+          title="Kettlebell" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/cable-icon.png')}
+          title="Cables" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/machine-icon.png')}
+          title="Machines" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/bodyweight-icon.png')}
+          title="Bodyweight" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/cardio-icon.png')}
+          title="Cardio" 
+          isChecked="false"
+        />
     </SafeAreaView>
   );
 };
