@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, Image, Dimensions, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CheckBox from 'expo-checkbox'
+import { exercises } from './ExerciseData.js'; 
 
 const { width, height } = Dimensions.get('window');
 
@@ -58,13 +59,19 @@ const AddExercise = ({navigation}) => {
     navigation.navigate('ChooseEquipment');
   };
   const [text, setText] = useState('');
-
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedMuscles, setSelectedMuscles] = useState([]);
+  const [selectedEquipment, setSelectedEquipment] = useState(null);
 
   const handlePress = () => {
     setIsChecked(!isChecked);
   };
 
+  const filteredExercises = exercises.filter(exercise => {
+    const muscleMatch = selectedMuscles.length === 0 || exercise.muscles.some(muscle => selectedMuscles.includes(muscle));
+    const equipmentMatch = !selectedEquipment || exercise.equipment === selectedEquipment;
+    return muscleMatch && equipmentMatch;
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,42 +93,17 @@ const AddExercise = ({navigation}) => {
                 <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
             </View>
         </View>
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/barbell_bench_press.gif')} 
-            title="Barbell Bench Press" 
-            isChecked="false"
-        />
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/dumbbell_bench_press.gif')} 
-            title="Dumbbell Bench Press" 
-            isChecked="false"
-        />
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/dumbbell_one_arm_row.gif')} 
-            title="Dumbbell One-Arm Row" 
-            isChecked="false"
-        />
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/dumbbell_row.gif')} 
-            title="Dumbbell Row" 
-            isChecked="false"
-        />
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/decline_cable_crossover.gif')} 
-            title="Decline Cable Crossover" 
-            isChecked="false"
-        />
-        <CustomButtonExercises 
-            onPress={handlePress} 
-            image={require('../assets/exercise_icon_gifs/incline_dumbbell_press.gif')} 
-            title="Incline Dumbbell Bench Press" 
-            isChecked="false"
-        />
+        {filteredExercises.map(exercise => (
+          <CustomButtonExercises 
+            key={exercise.id}
+            handlePress={handlePress}
+            image={exercise.image}
+            title={exercise.title}
+            muscles={exercise.muscles}
+            equipment={exercise.equipment}
+            isChecked={isChecked}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
