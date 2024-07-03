@@ -15,7 +15,7 @@ const MuscleCheckBox = ({ handlePress, image, title, isChecked }) => (
         style={styles.touchable}
         onPress={handlePress}
         >
-          <Text style={styles.equipmentText}>{title}</Text>
+          <Text style={styles.muscleText}>{title}</Text>
           <CheckBox 
             value={isChecked}
             onValueChange={handlePress}
@@ -121,25 +121,6 @@ const styles = StyleSheet.create({
     flex: 1, // Occupies the full screen
     paddingHorizontal: 16,
   },
-  inputContainer: {
-  },
-  label: {
-    fontSize: 18, // Sets the font size for the label
-    marginBottom: 8, // Adds space below the label
-    marginLeft: 20, // Adds a margin to the left side
-    marginRight: 20, // Adds a margin to the right side
-  },
-  input: {
-    height: 40, // Sets the height for the input box
-    borderColor: 'gray', // Sets the border color
-    borderWidth: 1, // Sets the border width
-    paddingHorizontal: 8, // Adds padding inside the input box
-    marginLeft: 20, // Adds a margin to the left side
-    marginRight: 20, // Adds a margin to the right side
-  },
-  displayText: {
-    fontSize: 18, // Sets the font size for the display text
-  },
   equipmentContainer:{
     alignItems: 'flex-start',
     flexDirection: 'row',
@@ -154,7 +135,7 @@ const styles = StyleSheet.create({
   checkbox: {
     marginRight: 20,
   },
-  equipmentText: {
+  muscleText: {
     fontSize: 18,
   },
   touchable: {
