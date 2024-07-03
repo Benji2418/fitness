@@ -5,8 +5,6 @@ import { View, Text, Image, Dimensions, StyleSheet, ScrollView, TouchableOpacity
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CheckBox from 'expo-checkbox'
 
-const { width, height } = Dimensions.get('window');
-
 const Stack = createStackNavigator();
 
 const MuscleCheckBox = ({ handlePress, image, title, isChecked }) => (
@@ -26,7 +24,6 @@ const MuscleCheckBox = ({ handlePress, image, title, isChecked }) => (
 );
 
 const ChooseMuscles = () => {
-  const [text, setText] = useState('');
   const [isChecked, setIsChecked] = useState(false);
 
   const handlePress = () => {

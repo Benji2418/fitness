@@ -5,8 +5,6 @@ import { View, Text, Image, Dimensions, Button, StyleSheet, TextInput, Touchable
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CheckBox from 'expo-checkbox'
 
-const { width, height } = Dimensions.get('window');
-
 const Stack = createStackNavigator();
 
 const EquipmentCheckBox = ({ handlePress, image, title, isChecked }) => (
@@ -30,7 +28,6 @@ const EquipmentCheckBox = ({ handlePress, image, title, isChecked }) => (
 );
 
 const ChooseEquipment = () => {
-  const [text, setText] = useState('');
   const [isChecked, setIsChecked] = useState(false);
 
   const handlePress = () => {
