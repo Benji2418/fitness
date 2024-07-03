@@ -1,20 +1,17 @@
-import { CurrentRenderContext, NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, Image, Dimensions, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CheckBox from 'expo-checkbox'
+import CheckBox from 'expo-checkbox';
 import { exercises } from './ExerciseData.js'; 
 
 const { width, height } = Dimensions.get('window');
 
-const Stack = createStackNavigator();
 // Custom Button Component
 const CustomButtonMuscles = ({ onPress, title }) => (
   <TouchableOpacity
     onPress={onPress}
     style={styles.buttonMuscles}
-    activeOpacity={0.7} // Adjusts the opacity of the button when pressed
+    activeOpacity={0.7}
   >
     <Text style={styles.buttonText}>{title}</Text>
   </TouchableOpacity>
@@ -24,7 +21,7 @@ const CustomButtonEquipment = ({ onPress, title }) => (
   <TouchableOpacity
     onPress={onPress}
     style={styles.buttonEquipment}
-    activeOpacity={0.7} // Adjusts the opacity of the button when pressed
+    activeOpacity={0.7}
   >
     <Text style={styles.buttonText}>{title}</Text>
   </TouchableOpacity>
@@ -32,86 +29,86 @@ const CustomButtonEquipment = ({ onPress, title }) => (
 
 const CustomButtonExercises = ({ handlePress, image, title, isChecked }) => (
   <View style={styles.exerciseContainer}>
-      <TouchableOpacity 
-        style={styles.touchable}
-        onPress={handlePress}
-        >
-          <Image
-              source={image}
-              style={styles.icons}
-          />
-          <Text style={styles.equipmentText}>{title}</Text>
-          <CheckBox 
-            value={isChecked}
-            onValueChange={handlePress}
-            style={styles.checkbox}
-          />
-      </TouchableOpacity>
+    <TouchableOpacity 
+      style={styles.touchable}
+      onPress={handlePress}
+    >
+      <Image
+        source={image}
+        style={styles.icons}
+      />
+      <Text style={styles.equipmentText}>{title}</Text>
+      <CheckBox 
+        value={isChecked}
+        onValueChange={handlePress}
+        style={styles.checkbox}
+      />
+    </TouchableOpacity>
   </View>
 );
 
-
-const AddExercise = ({navigation}) => {
+const AddExercise = ({ navigation }) => {
   const handleMusclePress = () => {
     navigation.navigate('ChooseMusclesMan');
   };
+  
   const handleEquipmentPress = () => {
     navigation.navigate('ChooseEquipment');
   };
+
   const [text, setText] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState({});
   const [selectedMuscles, setSelectedMuscles] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
 
-  const handlePress = () => {
-    setIsChecked(!isChecked);
+  const handlePress = (id) => {
+    setIsChecked(prevState => ({ ...prevState, [id]: !prevState[id] }));
   };
 
   const filteredExercises = exercises.filter(exercise => {
     const muscleMatch = selectedMuscles.length === 0 || exercise.muscles.some(muscle => selectedMuscles.includes(muscle));
     const equipmentMatch = !selectedEquipment || exercise.equipment === selectedEquipment;
-    return muscleMatch && equipmentMatch;
+    const searchTextMatch = exercise.title.toLowerCase().includes(text.toLowerCase());
+    return muscleMatch && equipmentMatch && searchTextMatch;
   });
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.inputContainer}>
-            <Text style={styles.label}>Choose exercises:</Text>
-            <TextInput
+          <Text style={styles.label}>Choose exercises:</Text>
+          <TextInput
             style={styles.input}
             placeholder="Search"
-            onChangeText={setText} // Updates the state variable 'text' whenever the input changes
-            value={text} // Binds the input value to the state variable 'text'
-            />
+            onChangeText={setText}
+            value={text}
+          />
         </View>
         <View style={styles.buttonContainer}>
-            <View style={styles.buttonMuscles}>
-                <CustomButtonMuscles onPress={handleMusclePress} title="Muscles" />
-            </View>
-            <View style={styles.buttonEquipment}>
-                <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
-            </View>
+          <View style={styles.buttonMuscles}>
+            <CustomButtonMuscles onPress={handleMusclePress} title="Muscles" />
+          </View>
+          <View style={styles.buttonEquipment}>
+            <CustomButtonEquipment onPress={handleEquipmentPress} title="Equipment" />
+          </View>
         </View>
         {filteredExercises.map(exercise => (
           <CustomButtonExercises 
             key={exercise.id}
-            handlePress={handlePress}
+            handlePress={() => handlePress(exercise.id)}
             image={exercise.image}
             title={exercise.title}
-            muscles={exercise.muscles}
-            equipment={exercise.equipment}
-            isChecked={isChecked}
+            isChecked={isChecked[exercise.id] || false}
           />
         ))}
       </ScrollView>
     </SafeAreaView>
   );
 };
-// Define the styles for the component
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Occupies the full screen
+    flex: 1,
     paddingHorizontal: 16,
   },
   buttonContainer: {
@@ -121,49 +118,47 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonMuscles: {
-    width: '42%', // Width as a percentage of the container's width
-    height: height * 0.06, // Height as a percentage of the device's height
-    backgroundColor: '#007BFF', // Button background color
-    justifyContent: 'center', // Centers content vertically
-    alignItems: 'center', // Centers content horizontally
-    borderRadius: 10, // Rounded corners
+    width: '42%',
+    height: height * 0.06,
+    backgroundColor: '#007BFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
   buttonEquipment: {
-    width: '47%', // Width as a percentage of the container's width
-    height: height * 0.06, // Height as a percentage of the device's height
-    backgroundColor: '#007BFF', // Button background color
-    justifyContent: 'center', // Centers content vertically
-    alignItems: 'center', // Centers content horizontally
-    borderRadius: 10, // Rounded corners
+    width: '47%',
+    height: height * 0.06,
+    backgroundColor: '#007BFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
   buttonText: {
-    color: '#FFFFFF', // Text color
-    fontSize: width * 0.04, // Font size as a percentage of the device's width
+    color: '#FFFFFF',
+    fontSize: width * 0.04,
   },
   inputContainer: {
+    marginBottom: 10,
   },
   label: {
-    fontSize: 18, // Sets the font size for the label
-    marginBottom: 8, // Adds space below the label
-    marginLeft: 20, // Adds a margin to the left side
-    marginRight: 20, // Adds a margin to the right side
+    fontSize: 18,
+    marginBottom: 8,
+    marginLeft: 20,
+    marginRight: 20,
   },
   input: {
-    height: 40, // Sets the height for the input box
-    borderColor: 'gray', // Sets the border color
-    borderWidth: 1, // Sets the border width
-    paddingHorizontal: 8, // Adds padding inside the input box
-    marginLeft: 20, // Adds a margin to the left side
-    marginRight: 20, // Adds a margin to the right side
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingHorizontal: 8,
+    marginLeft: 20,
+    marginRight: 20,
   },
-  displayText: {
-    fontSize: 18, // Sets the font size for the display text
-  },
-  exerciseContainer:{
+  exerciseContainer: {
     alignItems: 'flex-start',
     flexDirection: 'row',
     marginTop: 10,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   icons: {
     marginLeft: 5,
@@ -180,12 +175,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     padding: 10,
     backgroundColor: '#ddd',
     borderRadius: 10,
   },
 });
 
-// Export the component as default
 export default AddExercise;
