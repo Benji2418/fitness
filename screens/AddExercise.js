@@ -49,7 +49,7 @@ const CustomButtonExercises = ({ handlePress, image, title, isChecked }) => (
 
 const AddExercise = ({ navigation }) => {
   const handleMusclePress = () => {
-    navigation.navigate('ChooseMusclesMan');
+    navigation.navigate('ChooseMuscles');
   };
   
   const handleEquipmentPress = () => {
