@@ -50,6 +50,11 @@ const ChooseMuscles = () => {
         />
         <MuscleCheckBox
           onPress={handlePress}
+          title="Rear Delts" 
+          isChecked="false"
+        />
+        <MuscleCheckBox
+          onPress={handlePress}
           title="Middle Back" 
           isChecked="false"
         />
