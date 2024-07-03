@@ -59,6 +59,12 @@ const ChooseEquipment = () => {
         />
         <EquipmentCheckBox
           onPress={handlePress}
+          image={require('../assets/equipment_icons/weight-plate-icon.png')}
+          title="Plate" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
           image={require('../assets/equipment_icons/cable-icon.png')}
           title="Cables" 
           isChecked="false"
@@ -79,6 +85,12 @@ const ChooseEquipment = () => {
           onPress={handlePress}
           image={require('../assets/equipment_icons/cardio-icon.png')}
           title="Cardio" 
+          isChecked="false"
+        />
+        <EquipmentCheckBox
+          onPress={handlePress}
+          image={require('../assets/equipment_icons/harness-icon.png')}
+          title="Harness" 
           isChecked="false"
         />
     </SafeAreaView>
